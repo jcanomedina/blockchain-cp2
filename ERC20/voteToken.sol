@@ -1,4 +1,4 @@
-// contracts/voteToken.sol
+// ERC20/voteToken.sol
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 

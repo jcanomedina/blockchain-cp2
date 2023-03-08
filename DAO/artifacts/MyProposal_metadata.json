@@ -1,0 +1,102 @@
+{
+	"compiler": {
+		"version": "0.8.0+commit.c7dfd78e"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "votes",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "tokens",
+						"type": "uint256"
+					}
+				],
+				"name": "ProposalExecution",
+				"type": "event"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "proposalId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "numVotes",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "numTokens",
+						"type": "uint256"
+					}
+				],
+				"name": "executeProposal",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"DAO/MyProposal.sol": "MyProposal"
+		},
+		"evmVersion": "istanbul",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"DAO/IExecutableProposal.sol": {
+			"keccak256": "0x758a012b4bc9722fe619d444f611d31e84768e489ba07e013747ece5ee3fa7b6",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://adab37375b0be221f2ce5b384192a8579ff3ea59a86b44557dc06541e6a12d5e",
+				"dweb:/ipfs/QmNZjmcPSHUxWTm9BsFvN1KGdo6hkmKgvvsWjw4dfeR2Wv"
+			]
+		},
+		"DAO/MyProposal.sol": {
+			"keccak256": "0x55d1e3bbbb94cbdf122e4132420ee9d25357a1929d5d1f97472bf21bbbaf5a62",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://ffa01e12a35f8677ce23a6b72c924557ea6d7a8249be1b41a888dbbd4a99f9b6",
+				"dweb:/ipfs/QmSmqTa97VjQ4fxSYWPWZRB84NTXE6vp6ksSQguNu5gut9"
+			]
+		}
+	},
+	"version": 1
+}

@@ -1,0 +1,69 @@
+{
+	"compiler": {
+		"version": "0.8.0+commit.c7dfd78e"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "proposalId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "numVotes",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "numTokens",
+						"type": "uint256"
+					}
+				],
+				"name": "executeProposal",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"DAO/IExecutableProposal.sol": "IExecutableProposal"
+		},
+		"evmVersion": "istanbul",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"DAO/IExecutableProposal.sol": {
+			"keccak256": "0x758a012b4bc9722fe619d444f611d31e84768e489ba07e013747ece5ee3fa7b6",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://adab37375b0be221f2ce5b384192a8579ff3ea59a86b44557dc06541e6a12d5e",
+				"dweb:/ipfs/QmNZjmcPSHUxWTm9BsFvN1KGdo6hkmKgvvsWjw4dfeR2Wv"
+			]
+		}
+	},
+	"version": 1
+}

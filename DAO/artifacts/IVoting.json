@@ -1,0 +1,240 @@
+{
+	"deploy": {
+		"VM:-": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"main:1": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"ropsten:3": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"rinkeby:4": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"kovan:42": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"goerli:5": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"Custom": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		}
+	},
+	"data": {
+		"bytecode": {
+			"generatedSources": [],
+			"linkReferences": {},
+			"object": "",
+			"opcodes": "",
+			"sourceMap": ""
+		},
+		"deployedBytecode": {
+			"generatedSources": [],
+			"immutableReferences": {},
+			"linkReferences": {},
+			"object": "",
+			"opcodes": "",
+			"sourceMap": ""
+		},
+		"gasEstimates": null,
+		"methodIdentifiers": {
+			"aniadirParticipante()": "17657a1c",
+			"aniadirPropuesta(string,uint256,address)": "170f8d1f",
+			"finalizarVotacion()": "67095dd8",
+			"iniciarVotacion(uint256,uint256)": "1c64b8a0",
+			"retirarPropuesta(uint256)": "2295f243",
+			"votar(uint256,uint256)": "4fa5a16f"
+		}
+	},
+	"abi": [
+		{
+			"anonymous": false,
+			"inputs": [],
+			"name": "FinVotacion",
+			"type": "event"
+		},
+		{
+			"anonymous": false,
+			"inputs": [
+				{
+					"indexed": false,
+					"internalType": "uint256",
+					"name": "startDate",
+					"type": "uint256"
+				},
+				{
+					"indexed": false,
+					"internalType": "uint256",
+					"name": "endDate",
+					"type": "uint256"
+				}
+			],
+			"name": "InicioVotacion",
+			"type": "event"
+		},
+		{
+			"anonymous": false,
+			"inputs": [
+				{
+					"indexed": false,
+					"internalType": "uint256",
+					"name": "propId",
+					"type": "uint256"
+				},
+				{
+					"indexed": false,
+					"internalType": "address",
+					"name": "propOwner",
+					"type": "address"
+				},
+				{
+					"indexed": false,
+					"internalType": "uint256",
+					"name": "budget",
+					"type": "uint256"
+				}
+			],
+			"name": "NuevaPropuesta",
+			"type": "event"
+		},
+		{
+			"anonymous": false,
+			"inputs": [
+				{
+					"indexed": false,
+					"internalType": "uint256",
+					"name": "propId",
+					"type": "uint256"
+				},
+				{
+					"indexed": false,
+					"internalType": "uint256",
+					"name": "numVotes",
+					"type": "uint256"
+				},
+				{
+					"indexed": false,
+					"internalType": "uint256",
+					"name": "numTokens",
+					"type": "uint256"
+				}
+			],
+			"name": "PropuestaAprobada",
+			"type": "event"
+		},
+		{
+			"anonymous": false,
+			"inputs": [
+				{
+					"indexed": false,
+					"internalType": "uint256",
+					"name": "propId",
+					"type": "uint256"
+				}
+			],
+			"name": "PropuestaRetirada",
+			"type": "event"
+		},
+		{
+			"inputs": [],
+			"name": "aniadirParticipante",
+			"outputs": [],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "string",
+					"name": "descr",
+					"type": "string"
+				},
+				{
+					"internalType": "uint256",
+					"name": "budget",
+					"type": "uint256"
+				},
+				{
+					"internalType": "contract IExecutableProposal",
+					"name": "exec",
+					"type": "address"
+				}
+			],
+			"name": "aniadirPropuesta",
+			"outputs": [
+				{
+					"internalType": "uint256",
+					"name": "",
+					"type": "uint256"
+				}
+			],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"inputs": [],
+			"name": "finalizarVotacion",
+			"outputs": [],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "uint256",
+					"name": "startDate",
+					"type": "uint256"
+				},
+				{
+					"internalType": "uint256",
+					"name": "endDate",
+					"type": "uint256"
+				}
+			],
+			"name": "iniciarVotacion",
+			"outputs": [],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "uint256",
+					"name": "propId",
+					"type": "uint256"
+				}
+			],
+			"name": "retirarPropuesta",
+			"outputs": [],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "uint256",
+					"name": "propId",
+					"type": "uint256"
+				},
+				{
+					"internalType": "uint256",
+					"name": "numVotes",
+					"type": "uint256"
+				}
+			],
+			"name": "votar",
+			"outputs": [],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		}
+	]
+}
