@@ -4,9 +4,12 @@ pragma solidity ^0.8.0;
 
 import "./IVoting.sol";
 import "./IExecutableProposal.sol";
+import "hardhat/console.sol";
 
 contract VotingDAO is IVoting {
 
+    // proposals received by the DAO
+    //
     uint proposalCounter = 0;
     struct Proposal {
         address owner;
@@ -24,8 +27,22 @@ contract VotingDAO is IVoting {
     uint startDateVoting;
     uint endDateVoting;
     bool votingStarted;
+
+    // list of participants registered in the DAO
+    //
     mapping(address => bool) participants;
 
+    // votes sent by a participant to a proposal
+    //
+    struct VoteProposal {
+        uint propId;
+        uint numVotes;
+        uint numTokens;
+    }
+    mapping(address => VoteProposal[]) votesParticipants;
+
+    // modifiers
+    //
     modifier onlyAdmin {
         require(msg.sender == administrator);
         _;
@@ -121,10 +138,26 @@ contract VotingDAO is IVoting {
     
     function votar(uint propId, uint numVotes) isParticipant votingIsStarted external override {
         Proposal memory proposalToBeVoted = findActiveNotApprovedProposal(propId);
+        VoteProposal memory voteProposal;
 
-        if (proposalToBeVoted.approved == true)
-            revert();
+        uint pos = 0 ;
+        uint arrayLength = votesParticipants[msg.sender].length;
+        while (votesParticipants[msg.sender][pos].propId != propId && pos <= arrayLength) pos++;
+
+        if (votesParticipants[msg.sender][pos].propId == propId) {
+            voteProposal = votesParticipants[msg.sender][pos];
+        }
+        else {
+            voteProposal.propId = propId;
+            voteProposal.numVotes = 0;
+            voteProposal.numTokens = 0;
+            votesParticipants[msg.sender].push(voteProposal);
+        }
+
+        // uint previousVotes = voteProposal.numVotes;
         
+
+
         proposalToBeVoted.votes = proposalToBeVoted.votes + numVotes;
 
         if (proposalToBeVoted.votes >= proposalToBeVoted.budget){
@@ -150,5 +183,25 @@ contract VotingDAO is IVoting {
         else {
             revert();
         }
+    }
+
+    function findOrCreateEmptyVote (uint propId) private returns (VoteProposal memory) {
+        VoteProposal[] memory voteProposals = votesParticipants[msg.sender];
+        VoteProposal memory voteProposal;
+
+        uint pos = 0 ;
+        uint arrayLength = voteProposals.length;
+        while (voteProposals[pos].propId != propId && pos <= arrayLength) pos++;
+
+        if (voteProposals[pos].propId == propId) {
+            voteProposal = voteProposals[pos];
+        }
+        else {
+            voteProposal.propId = propId;
+            voteProposal.numVotes = 0;
+            voteProposal.numTokens = 0;
+            votesParticipants[msg.sender].push(voteProposal);
+        }
+        return voteProposal;
     }
 }

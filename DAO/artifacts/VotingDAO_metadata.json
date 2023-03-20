@@ -289,11 +289,19 @@
 			]
 		},
 		"DAO/VotingDAO.sol": {
-			"keccak256": "0x65fc36111396791b56fcf57b900fe3aab507201ac67c1096d1b1d1f1c0605d54",
+			"keccak256": "0x626216fc42c703d663c80174e2a02a6c3d711893f83e0cd0f32964d6db867407",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://591e3a1cf74ac0c69fcdcc33642d07108696bd547311b9d8e8f3e943fce55557",
-				"dweb:/ipfs/QmWHtPchXwj8YqTKSCjeJVFgvKj6dRSXoWvsBu3pTMU2iJ"
+				"bzz-raw://7e3798bc47da82cd443beb71f9d8b6345acdd1c13c192ac0f24273696ae4504f",
+				"dweb:/ipfs/Qmdcwa2foXTXxtroepNdq7bgpdcN8Y6jPBVDyyGVmaZRw2"
+			]
+		},
+		"hardhat/console.sol": {
+			"keccak256": "0x60b0215121bf25612a6739fb2f1ec35f31ee82e4a8216c032c8243d904ab3aa9",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://6e29880d33dd479bb046ba306993d26ccb779a4b1d94a046cb3567f22948bb4d",
+				"dweb:/ipfs/QmfTY1qzPt5C63Wc7y6JqfZr5899NRvXYdCpyLzR5FXQic"
 			]
 		}
 	},
