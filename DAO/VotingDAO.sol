@@ -9,12 +9,16 @@ contract VotingDAO is IVoting {
 
     uint proposalCounter = 0;
     struct Proposal {
+        address owner;
         uint id;
         string description;
         uint budget;
+        uint votes;
+        bool approved;
+        bool active;
         IExecutableProposal executable;
     }
-    mapping(address => Proposal) proposals;
+    Proposal[] public proposals;
 
     address administrator;
     uint startDateVoting;
@@ -68,8 +72,6 @@ contract VotingDAO is IVoting {
     }
 
     function iniciarVotacion(uint startDate, uint endDate) onlyAdmin votingIsNotStarted external override {
-        // require (startDate >= block.timestamp);
-
         emit InicioVotacion (startDate, endDate);
 
         startDateVoting = startDate;
@@ -89,22 +91,64 @@ contract VotingDAO is IVoting {
     function aniadirPropuesta(string memory descr, uint budget, IExecutableProposal exec) isParticipant votingIsStarted external override returns (uint) {
         proposalCounter++;
         Proposal memory newProposal;
+        newProposal.owner = msg.sender;
         newProposal.id = proposalCounter;
         newProposal.description = descr;
         newProposal.budget = budget;
+        newProposal.votes = 0;
+        newProposal.active = true;
+        newProposal.approved = false;
         newProposal.executable = exec;
 
-        proposals[msg.sender] = newProposal;
+        proposals.push(newProposal);
 
         emit NuevaPropuesta (proposalCounter, msg.sender, budget); 
         return proposalCounter;
     }
     
-    function retirarPropuesta(uint propId) external override {
-        emit PropuestaRetirada (propId);
+    function retirarPropuesta(uint propId) isParticipant external override {
+        Proposal memory proposalToBeRetired = findActiveNotApprovedProposal(propId);
+        
+        if (proposalToBeRetired.owner == msg.sender) {
+            proposalToBeRetired.active = false;
+
+            emit PropuestaRetirada (propId);
+        }
+        else {
+            revert();
+        }
     }
     
-    function votar(uint propId, uint numVotes) votingIsStarted external override {
-        // emit PropuestaAprobada 
+    function votar(uint propId, uint numVotes) isParticipant votingIsStarted external override {
+        Proposal memory proposalToBeVoted = findActiveNotApprovedProposal(propId);
+
+        if (proposalToBeVoted.approved == true)
+            revert();
+        
+        proposalToBeVoted.votes = proposalToBeVoted.votes + numVotes;
+
+        if (proposalToBeVoted.votes >= proposalToBeVoted.budget){
+            proposalToBeVoted.executable.executeProposal{gas:100000}(propId, proposalToBeVoted.votes, proposalToBeVoted.budget);
+            
+            emit PropuestaAprobada (propId, proposalToBeVoted.votes, proposalToBeVoted.budget);
+        }
+    }
+
+    // Auxiliary function 
+    // 
+
+    function findActiveNotApprovedProposal(uint propId) private view returns (Proposal memory) {
+        uint pos = 0;
+        uint arrayLength = proposals.length;
+        while (proposals[pos].id != propId && pos <= arrayLength){
+            pos++;
+        }
+
+        if (proposals[pos].id == propId && proposals[pos].active && !proposals[pos].approved) {
+            return proposals[pos];
+        }
+        else {
+            revert();
+        }
     }
 }

@@ -163,6 +163,60 @@
 				"inputs": [
 					{
 						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "proposals",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "owner",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "description",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "budget",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "votes",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bool",
+						"name": "approved",
+						"type": "bool"
+					},
+					{
+						"internalType": "bool",
+						"name": "active",
+						"type": "bool"
+					},
+					{
+						"internalType": "contract IExecutableProposal",
+						"name": "executable",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
 						"name": "propId",
 						"type": "uint256"
 					}
@@ -235,11 +289,11 @@
 			]
 		},
 		"DAO/VotingDAO.sol": {
-			"keccak256": "0x3b66e02267ed9f1f3cddc17a4190621065887fc3e99a9be9ceb1b62208823a4c",
+			"keccak256": "0x65fc36111396791b56fcf57b900fe3aab507201ac67c1096d1b1d1f1c0605d54",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://1eb21a8018c142cd0981ed0a40f090dab62c8518c6b12f23950fb96d125fd0f8",
-				"dweb:/ipfs/QmQDQLfBSb4HadkyJoPLJ3QFHvUV9GBdK8WxU1SqqqG1tT"
+				"bzz-raw://591e3a1cf74ac0c69fcdcc33642d07108696bd547311b9d8e8f3e943fce55557",
+				"dweb:/ipfs/QmWHtPchXwj8YqTKSCjeJVFgvKj6dRSXoWvsBu3pTMU2iJ"
 			]
 		}
 	},

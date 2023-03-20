@@ -1,1 +1,1 @@
-## ERC20 token (Caso Practico II)
+## DAO + ERC20 token (Caso Practico II)
