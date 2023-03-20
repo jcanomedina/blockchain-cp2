@@ -18,7 +18,6 @@ contract voteToken is ERC20 {
     }
 
     function mint(address to, uint256 amount) onlyOwner public payable {
-        // if msg.sender = owner 
         _mint(to, amount);
     }
 }

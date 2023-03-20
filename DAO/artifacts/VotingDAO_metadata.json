@@ -1,0 +1,247 @@
+{
+	"compiler": {
+		"version": "0.8.0+commit.c7dfd78e"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"anonymous": false,
+				"inputs": [],
+				"name": "FinVotacion",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "startDate",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "endDate",
+						"type": "uint256"
+					}
+				],
+				"name": "InicioVotacion",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "propId",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "propOwner",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "budget",
+						"type": "uint256"
+					}
+				],
+				"name": "NuevaPropuesta",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "propId",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "numVotes",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "numTokens",
+						"type": "uint256"
+					}
+				],
+				"name": "PropuestaAprobada",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "propId",
+						"type": "uint256"
+					}
+				],
+				"name": "PropuestaRetirada",
+				"type": "event"
+			},
+			{
+				"inputs": [],
+				"name": "aniadirParticipante",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "descr",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "budget",
+						"type": "uint256"
+					},
+					{
+						"internalType": "contract IExecutableProposal",
+						"name": "exec",
+						"type": "address"
+					}
+				],
+				"name": "aniadirPropuesta",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "finalizarVotacion",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "startDate",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "endDate",
+						"type": "uint256"
+					}
+				],
+				"name": "iniciarVotacion",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "propId",
+						"type": "uint256"
+					}
+				],
+				"name": "retirarPropuesta",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "propId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "numVotes",
+						"type": "uint256"
+					}
+				],
+				"name": "votar",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"DAO/VotingDAO.sol": "VotingDAO"
+		},
+		"evmVersion": "istanbul",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"DAO/IExecutableProposal.sol": {
+			"keccak256": "0x758a012b4bc9722fe619d444f611d31e84768e489ba07e013747ece5ee3fa7b6",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://adab37375b0be221f2ce5b384192a8579ff3ea59a86b44557dc06541e6a12d5e",
+				"dweb:/ipfs/QmNZjmcPSHUxWTm9BsFvN1KGdo6hkmKgvvsWjw4dfeR2Wv"
+			]
+		},
+		"DAO/IVoting.sol": {
+			"keccak256": "0xbb40967fd8944f5aaacf63f430fd9b3161a64e660e94cb70cf115998e2d9126d",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://aa13935a00acd943157ba48ac19110c8f0371d099032b06e637b0d4766b64621",
+				"dweb:/ipfs/QmXkhsXdvf4TEG4pYScwDcTFVSqJNWhnz6jQmiwGYat9a1"
+			]
+		},
+		"DAO/VotingDAO.sol": {
+			"keccak256": "0x3b66e02267ed9f1f3cddc17a4190621065887fc3e99a9be9ceb1b62208823a4c",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://1eb21a8018c142cd0981ed0a40f090dab62c8518c6b12f23950fb96d125fd0f8",
+				"dweb:/ipfs/QmQDQLfBSb4HadkyJoPLJ3QFHvUV9GBdK8WxU1SqqqG1tT"
+			]
+		}
+	},
+	"version": 1
+}
