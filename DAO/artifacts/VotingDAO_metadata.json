@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.0+commit.c7dfd78e"
+		"version": "0.8.18+commit.87f61d96"
 	},
 	"language": "Solidity",
 	"output": {
@@ -100,6 +100,19 @@
 			},
 			{
 				"inputs": [],
+				"name": "administrator",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
 				"name": "aniadirParticipante",
 				"outputs": [],
 				"stateMutability": "nonpayable",
@@ -136,6 +149,19 @@
 			},
 			{
 				"inputs": [],
+				"name": "endDateVoting",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
 				"name": "finalizarVotacion",
 				"outputs": [],
 				"stateMutability": "nonpayable",
@@ -157,6 +183,25 @@
 				"name": "iniciarVotacion",
 				"outputs": [],
 				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "participants",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -227,6 +272,19 @@
 				"type": "function"
 			},
 			{
+				"inputs": [],
+				"name": "startDateVoting",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
 				"inputs": [
 					{
 						"internalType": "uint256",
@@ -242,6 +300,19 @@
 				"name": "votar",
 				"outputs": [],
 				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "votingStarted",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
 				"type": "function"
 			}
 		],
@@ -260,7 +331,7 @@
 		"compilationTarget": {
 			"DAO/VotingDAO.sol": "VotingDAO"
 		},
-		"evmVersion": "istanbul",
+		"evmVersion": "paris",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -289,11 +360,11 @@
 			]
 		},
 		"DAO/VotingDAO.sol": {
-			"keccak256": "0x626216fc42c703d663c80174e2a02a6c3d711893f83e0cd0f32964d6db867407",
+			"keccak256": "0x7d5fa280b9fbfc194bdbb301ba6798030282e4b1e1de4f7f99a56e65de56f4db",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://7e3798bc47da82cd443beb71f9d8b6345acdd1c13c192ac0f24273696ae4504f",
-				"dweb:/ipfs/Qmdcwa2foXTXxtroepNdq7bgpdcN8Y6jPBVDyyGVmaZRw2"
+				"bzz-raw://24773e75aa87f3b66085ec27786e3c84d9abeacab0b93331f6704c615989b25f",
+				"dweb:/ipfs/QmVeV7XHdkayGijn1LV7miwZgvzbq29an3kHUEzuMQDuKh"
 			]
 		},
 		"hardhat/console.sol": {

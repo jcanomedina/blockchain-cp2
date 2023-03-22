@@ -19,27 +19,19 @@ contract VotingDAO is IVoting {
         uint votes;
         bool approved;
         bool active;
+        mapping (address => uint) votesReceived;
         IExecutableProposal executable;
     }
     Proposal[] public proposals;
 
-    address administrator;
-    uint startDateVoting;
-    uint endDateVoting;
-    bool votingStarted;
+    address public administrator;
+    uint public startDateVoting;
+    uint public endDateVoting;
+    bool public votingStarted;
 
     // list of participants registered in the DAO
     //
-    mapping(address => bool) participants;
-
-    // votes sent by a participant to a proposal
-    //
-    struct VoteProposal {
-        uint propId;
-        uint numVotes;
-        uint numTokens;
-    }
-    mapping(address => VoteProposal[]) votesParticipants;
+    mapping(address => bool) public participants;
 
     // modifiers
     //
@@ -94,20 +86,28 @@ contract VotingDAO is IVoting {
         startDateVoting = startDate;
         endDateVoting = endDate;
         votingStarted = true;
+
+        console.log ("proceso de votacion iniciado entre %s y %s", startDateVoting, endDateVoting);
     }
 
     function finalizarVotacion() onlyAdmin votingIsStarted votingIsExpired external override {
         emit FinVotacion();
         votingStarted = false;
+        console.log ("Proceso de votacion finalizado");
     }
 
     function aniadirParticipante() isNotParticipant noAdmin external override {
         participants[msg.sender] = true;
+
+        console.log ("Participante %s aniadido", msg.sender);
     }
 
     function aniadirPropuesta(string memory descr, uint budget, IExecutableProposal exec) isParticipant votingIsStarted external override returns (uint) {
+        uint idx = proposals.length;
+        proposals.push();
+
+        Proposal storage newProposal = proposals[idx];
         proposalCounter++;
-        Proposal memory newProposal;
         newProposal.owner = msg.sender;
         newProposal.id = proposalCounter;
         newProposal.description = descr;
@@ -116,20 +116,20 @@ contract VotingDAO is IVoting {
         newProposal.active = true;
         newProposal.approved = false;
         newProposal.executable = exec;
-
-        proposals.push(newProposal);
-
         emit NuevaPropuesta (proposalCounter, msg.sender, budget); 
+        console.log ("Propuesta [%s] %s con presupuesto %s aniadido", proposalCounter, descr, budget);
         return proposalCounter;
     }
     
     function retirarPropuesta(uint propId) isParticipant external override {
-        Proposal memory proposalToBeRetired = findActiveNotApprovedProposal(propId);
+        Proposal storage proposalToBeRetired = findActiveNotApprovedProposal(propId);
         
         if (proposalToBeRetired.owner == msg.sender) {
             proposalToBeRetired.active = false;
 
             emit PropuestaRetirada (propId);
+            console.log ("Propuesta [%s] retirada por %s", propId, msg.sender);
+
         }
         else {
             revert();
@@ -137,32 +137,17 @@ contract VotingDAO is IVoting {
     }
     
     function votar(uint propId, uint numVotes) isParticipant votingIsStarted external override {
-        Proposal memory proposalToBeVoted = findActiveNotApprovedProposal(propId);
-        VoteProposal memory voteProposal;
-
-        uint pos = 0 ;
-        uint arrayLength = votesParticipants[msg.sender].length;
-        while (votesParticipants[msg.sender][pos].propId != propId && pos <= arrayLength) pos++;
-
-        if (votesParticipants[msg.sender][pos].propId == propId) {
-            voteProposal = votesParticipants[msg.sender][pos];
-        }
-        else {
-            voteProposal.propId = propId;
-            voteProposal.numVotes = 0;
-            voteProposal.numTokens = 0;
-            votesParticipants[msg.sender].push(voteProposal);
-        }
-
-        // uint previousVotes = voteProposal.numVotes;
-        
-
+        Proposal storage proposalToBeVoted = findActiveNotApprovedProposal(propId);
+        uint oldVotes = proposalToBeVoted.votesReceived[msg.sender];
+        uint newVotes = oldVotes + numVotes;
+        proposalToBeVoted.votesReceived[msg.sender] = newVotes;
 
         proposalToBeVoted.votes = proposalToBeVoted.votes + numVotes;
 
         if (proposalToBeVoted.votes >= proposalToBeVoted.budget){
             proposalToBeVoted.executable.executeProposal{gas:100000}(propId, proposalToBeVoted.votes, proposalToBeVoted.budget);
-            
+            proposalToBeVoted.approved = true;
+            console.log ("Propuesta [%s] aprobada", propId);
             emit PropuestaAprobada (propId, proposalToBeVoted.votes, proposalToBeVoted.budget);
         }
     }
@@ -170,7 +155,7 @@ contract VotingDAO is IVoting {
     // Auxiliary function 
     // 
 
-    function findActiveNotApprovedProposal(uint propId) private view returns (Proposal memory) {
+    function findActiveNotApprovedProposal(uint propId) private view returns (Proposal storage) {
         uint pos = 0;
         uint arrayLength = proposals.length;
         while (proposals[pos].id != propId && pos <= arrayLength){
@@ -183,25 +168,5 @@ contract VotingDAO is IVoting {
         else {
             revert();
         }
-    }
-
-    function findOrCreateEmptyVote (uint propId) private returns (VoteProposal memory) {
-        VoteProposal[] memory voteProposals = votesParticipants[msg.sender];
-        VoteProposal memory voteProposal;
-
-        uint pos = 0 ;
-        uint arrayLength = voteProposals.length;
-        while (voteProposals[pos].propId != propId && pos <= arrayLength) pos++;
-
-        if (voteProposals[pos].propId == propId) {
-            voteProposal = voteProposals[pos];
-        }
-        else {
-            voteProposal.propId = propId;
-            voteProposal.numVotes = 0;
-            voteProposal.numTokens = 0;
-            votesParticipants[msg.sender].push(voteProposal);
-        }
-        return voteProposal;
     }
 }
