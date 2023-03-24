@@ -128,10 +128,10 @@ contract VotingDAO is IVoting {
             proposalToBeRetired.active = false;
 
             emit PropuestaRetirada (propId);
-            console.log ("Propuesta [%s] retirada por %s", propId, msg.sender);
-
+            console.log ("Propuesta [%s-%s] retirada por %s", propId, proposalToBeRetired.description, msg.sender);
         }
         else {
+            console.log ("Propuesta [%s-%s] no retirada.'%s' no es el creador. ", propId, proposalToBeRetired.description, msg.sender);
             revert();
         }
     }
@@ -143,6 +143,7 @@ contract VotingDAO is IVoting {
         proposalToBeVoted.votesReceived[msg.sender] = newVotes;
 
         proposalToBeVoted.votes = proposalToBeVoted.votes + numVotes;
+        console.log ("Propuesta [%s] ha recibido [%s] votos. Total de votos: [%s]", propId, numVotes, proposalToBeVoted.votes);
 
         if (proposalToBeVoted.votes >= proposalToBeVoted.budget){
             proposalToBeVoted.executable.executeProposal{gas:100000}(propId, proposalToBeVoted.votes, proposalToBeVoted.budget);
@@ -166,6 +167,7 @@ contract VotingDAO is IVoting {
             return proposals[pos];
         }
         else {
+            console.log ("Propuesta [%s] no existe, ha sido retirada previamente o ya ha sido aprobada.", propId);
             revert();
         }
     }
