@@ -5,6 +5,7 @@ pragma solidity ^0.8.0;
 import "./IVoting.sol";
 import "./IExecutableProposal.sol";
 import "hardhat/console.sol";
+import "../ERC20/voteToken.sol";
 
 contract VotingDAO is IVoting {
 
@@ -28,6 +29,9 @@ contract VotingDAO is IVoting {
     uint public startDateVoting;
     uint public endDateVoting;
     bool public votingStarted;
+
+    // token ERC20
+    VoteToken token;
 
     // list of participants registered in the DAO
     //
@@ -76,8 +80,9 @@ contract VotingDAO is IVoting {
     event PropuestaAprobada(uint propId, uint numVotes, uint numTokens);    // votar       
     event FinVotacion();                                                    // finalizarVotacion 
 
-    constructor() {
+    constructor(VoteToken tk) {
         administrator = msg.sender;
+        token = tk;
     }
 
     function iniciarVotacion(uint startDate, uint endDate) onlyAdmin votingIsNotStarted external override {
@@ -140,10 +145,14 @@ contract VotingDAO is IVoting {
         Proposal storage proposalToBeVoted = findActiveNotApprovedProposal(propId);
         uint oldVotes = proposalToBeVoted.votesReceived[msg.sender];
         uint newVotes = oldVotes + numVotes;
+        uint numTokens = 100;
         proposalToBeVoted.votesReceived[msg.sender] = newVotes;
 
+        token.transferFrom(msg.sender, administrator, numTokens);
+
         proposalToBeVoted.votes = proposalToBeVoted.votes + numVotes;
-        console.log ("Propuesta [%s] ha recibido [%s] votos. Total de votos: [%s]", propId, numVotes, proposalToBeVoted.votes);
+        console.log ("Propuesta [%s] ha recibido [%s] votos. Total de votos: [%s].", propId, numVotes, proposalToBeVoted.votes);
+        console.log ("Propuesta [%s] ha recibido [%s] votos. Tokens transferidos: [%s].", propId, numVotes, numTokens);
 
         if (proposalToBeVoted.votes >= proposalToBeVoted.budget){
             proposalToBeVoted.executable.executeProposal{gas:100000}(propId, proposalToBeVoted.votes, proposalToBeVoted.budget);
