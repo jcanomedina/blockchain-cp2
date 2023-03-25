@@ -398,11 +398,11 @@
 			]
 		},
 		"DAO/VotingDAO.sol": {
-			"keccak256": "0x88fd728cd89f5dbc20eb489fd923aec50f266d4f5890a4875d12d6c19277531e",
+			"keccak256": "0xdd9233b34e5f8c370bdb3fd93570c1e7451c4e1d7f1d95acfc13b71d573d617c",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://a74815e8c0a22da2d2ed4d5d68baceabf4a9693bb72659b179d0b492026c6bca",
-				"dweb:/ipfs/QmU16ihVH45QgZLLq4uMxkchowRJ6tfNSxneDpAwaBDFSL"
+				"bzz-raw://9c637855a4c4cbd6eff9deb495cc7d66ffe1c580f72d5c2e27be8a8ed8f2f613",
+				"dweb:/ipfs/QmbJAdY6RjhydhMhXQijkXHDwxkNDaFExAvndUiLQZ43mu"
 			]
 		},
 		"ERC20/voteToken.sol": {

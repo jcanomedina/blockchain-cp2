@@ -146,13 +146,14 @@ contract VotingDAO is IVoting {
         uint oldVotes = proposalToBeVoted.votesReceived[msg.sender];
         uint newVotes = oldVotes + numVotes;
         uint numTokens = 100;
-        proposalToBeVoted.votesReceived[msg.sender] = newVotes;
 
+        console.log ("Transfiriendo [%s] tokens de [%s] a [%s]", numTokens, msg.sender, administrator);
         token.transferFrom(msg.sender, administrator, numTokens);
 
+        proposalToBeVoted.votesReceived[msg.sender] = newVotes;
         proposalToBeVoted.votes = proposalToBeVoted.votes + numVotes;
         console.log ("Propuesta [%s] ha recibido [%s] votos. Total de votos: [%s].", propId, numVotes, proposalToBeVoted.votes);
-        console.log ("Propuesta [%s] ha recibido [%s] votos. Tokens transferidos: [%s].", propId, numVotes, numTokens);
+        console.log ("Propuesta [%s] ha recibido [%s] tokens.", propId, numTokens);
 
         if (proposalToBeVoted.votes >= proposalToBeVoted.budget){
             proposalToBeVoted.executable.executeProposal{gas:100000}(propId, proposalToBeVoted.votes, proposalToBeVoted.budget);
