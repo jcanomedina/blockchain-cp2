@@ -246,6 +246,11 @@
 						"type": "uint256"
 					},
 					{
+						"internalType": "uint256",
+						"name": "tokens",
+						"type": "uint256"
+					},
+					{
 						"internalType": "bool",
 						"name": "approved",
 						"type": "bool"
@@ -398,11 +403,11 @@
 			]
 		},
 		"DAO/VotingDAO.sol": {
-			"keccak256": "0xdd9233b34e5f8c370bdb3fd93570c1e7451c4e1d7f1d95acfc13b71d573d617c",
+			"keccak256": "0xfb836b7f103aaa7fd92de08315788a89a8f008b334be866d5cb5add5d3328804",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://9c637855a4c4cbd6eff9deb495cc7d66ffe1c580f72d5c2e27be8a8ed8f2f613",
-				"dweb:/ipfs/QmbJAdY6RjhydhMhXQijkXHDwxkNDaFExAvndUiLQZ43mu"
+				"bzz-raw://099848001addac5122c28f3f353f3c23a1eb295046118420f235c1b3714710d9",
+				"dweb:/ipfs/QmbrNvkVe1EL9dNtkdZownf9wtXjdJz3gDqffGnY4z56t2"
 			]
 		},
 		"ERC20/voteToken.sol": {

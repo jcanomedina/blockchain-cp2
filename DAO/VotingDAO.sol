@@ -18,9 +18,11 @@ contract VotingDAO is IVoting {
         string description;
         uint budget;
         uint votes;
+        uint tokens;
         bool approved;
         bool active;
         mapping (address => uint) votesReceived;
+        mapping (address => uint) tokensReceived;
         IExecutableProposal executable;
     }
     Proposal[] public proposals;
@@ -59,11 +61,6 @@ contract VotingDAO is IVoting {
         _;
     }
 
-    modifier votingIsExpired {
-        require (block.timestamp > endDateVoting);
-        _;
-    }
-
     modifier isParticipant {
         require (participants[msg.sender] == true);
         _;
@@ -95,10 +92,15 @@ contract VotingDAO is IVoting {
         console.log ("proceso de votacion iniciado entre %s y %s", startDateVoting, endDateVoting);
     }
 
-    function finalizarVotacion() onlyAdmin votingIsStarted votingIsExpired external override {
-        emit FinVotacion();
-        votingStarted = false;
-        console.log ("Proceso de votacion finalizado");
+    function finalizarVotacion() onlyAdmin votingIsStarted external override {
+
+        if (endDateVoting < block.timestamp) {
+            emit FinVotacion();
+            votingStarted = false;
+            console.log ("Proceso de votacion finalizado");
+        } else {
+            console.log ("La votacion no ha finalizado todavia: now: [%s] endDateVoting: [%s]", block.timestamp, endDateVoting);
+        }
     }
 
     function aniadirParticipante() isNotParticipant noAdmin external override {
@@ -145,20 +147,30 @@ contract VotingDAO is IVoting {
         Proposal storage proposalToBeVoted = findActiveNotApprovedProposal(propId);
         uint oldVotes = proposalToBeVoted.votesReceived[msg.sender];
         uint newVotes = oldVotes + numVotes;
-        uint numTokens = 100;
+        uint oldTokens = proposalToBeVoted.tokensReceived[msg.sender];
+        uint newTokens = newVotes * newVotes - oldTokens;
 
-        console.log ("Transfiriendo [%s] tokens de [%s] a [%s]", numTokens, msg.sender, administrator);
-        token.transferFrom(msg.sender, administrator, numTokens);
+        console.log ("Propuesta [%s] ha recibido [%s] votos / [%s] tokens.", propId, numVotes, newTokens);
 
         proposalToBeVoted.votesReceived[msg.sender] = newVotes;
         proposalToBeVoted.votes = proposalToBeVoted.votes + numVotes;
-        console.log ("Propuesta [%s] ha recibido [%s] votos. Total de votos: [%s].", propId, numVotes, proposalToBeVoted.votes);
-        console.log ("Propuesta [%s] ha recibido [%s] tokens.", propId, numTokens);
+        proposalToBeVoted.tokensReceived[msg.sender] = newTokens + oldTokens;
+        proposalToBeVoted.tokens = proposalToBeVoted.tokens + newTokens;
 
-        if (proposalToBeVoted.votes >= proposalToBeVoted.budget){
-            proposalToBeVoted.executable.executeProposal{gas:100000}(propId, proposalToBeVoted.votes, proposalToBeVoted.budget);
+        console.log ("Transfiriendo [%s] tokens de [%s] a [%s]", newTokens, msg.sender, address(this));
+        token.transferFrom(msg.sender, address(this), newTokens);
+
+        console.log ("Total de votos recibidos por la propuesta [%s] es: [%s].", propId, proposalToBeVoted.votes);
+        console.log ("Total de tokens recibidos por la propuesta [%s] es: [%s]. Budget: [%s]", propId, proposalToBeVoted.tokens, proposalToBeVoted.budget);
+
+        if (proposalToBeVoted.tokens >= proposalToBeVoted.budget){
+            proposalToBeVoted.executable.executeProposal{gas:100000}(propId, proposalToBeVoted.tokens, proposalToBeVoted.budget);
             proposalToBeVoted.approved = true;
             console.log ("Propuesta [%s] aprobada", propId);
+
+            uint totalTokens = token.balanceOf(address(this)); 
+            console.log ("Transfiriendo [%s] tokens al contrato de la propuesta [%s]", totalTokens, address(proposalToBeVoted.executable));
+            token.transfer (address(proposalToBeVoted.executable), totalTokens);
             emit PropuestaAprobada (propId, proposalToBeVoted.votes, proposalToBeVoted.budget);
         }
     }
