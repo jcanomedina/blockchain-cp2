@@ -1,12 +1,18 @@
 {
 	"compiler": {
-		"version": "0.8.0+commit.c7dfd78e"
+		"version": "0.8.18+commit.87f61d96"
 	},
 	"language": "Solidity",
 	"output": {
 		"abi": [
 			{
-				"inputs": [],
+				"inputs": [
+					{
+						"internalType": "contract VoteToken",
+						"name": "tk",
+						"type": "address"
+					}
+				],
 				"stateMutability": "nonpayable",
 				"type": "constructor"
 			},
@@ -100,6 +106,19 @@
 			},
 			{
 				"inputs": [],
+				"name": "administrator",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
 				"name": "aniadirParticipante",
 				"outputs": [],
 				"stateMutability": "nonpayable",
@@ -136,6 +155,19 @@
 			},
 			{
 				"inputs": [],
+				"name": "endDateVoting",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
 				"name": "finalizarVotacion",
 				"outputs": [],
 				"stateMutability": "nonpayable",
@@ -157,6 +189,25 @@
 				"name": "iniciarVotacion",
 				"outputs": [],
 				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "participants",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -195,6 +246,11 @@
 						"type": "uint256"
 					},
 					{
+						"internalType": "uint256",
+						"name": "tokens",
+						"type": "uint256"
+					},
+					{
 						"internalType": "bool",
 						"name": "approved",
 						"type": "bool"
@@ -227,6 +283,19 @@
 				"type": "function"
 			},
 			{
+				"inputs": [],
+				"name": "startDateVoting",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
 				"inputs": [
 					{
 						"internalType": "uint256",
@@ -242,6 +311,19 @@
 				"name": "votar",
 				"outputs": [],
 				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "votingStarted",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
 				"type": "function"
 			}
 		],
@@ -260,7 +342,7 @@
 		"compilationTarget": {
 			"DAO/VotingDAO.sol": "VotingDAO"
 		},
-		"evmVersion": "istanbul",
+		"evmVersion": "paris",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -272,6 +354,38 @@
 		"remappings": []
 	},
 	"sources": {
+		"@openzeppelin/contracts/token/ERC20/ERC20.sol": {
+			"keccak256": "0x4ffc0547c02ad22925310c585c0f166f8759e2648a09e9b489100c42f15dd98d",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://15f52f51413a9de1ff191e2f6367c62178e1df7806d7880fe857a98b0b66253d",
+				"dweb:/ipfs/QmaQG1fwfgUt5E9nu2cccFiV47B2V78MM1tCy1qB7n4MsH"
+			]
+		},
+		"@openzeppelin/contracts/token/ERC20/IERC20.sol": {
+			"keccak256": "0x9750c6b834f7b43000631af5cc30001c5f547b3ceb3635488f140f60e897ea6b",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://5a7d5b1ef5d8d5889ad2ed89d8619c09383b80b72ab226e0fe7bde1636481e34",
+				"dweb:/ipfs/QmebXWgtEfumQGBdVeM6c71McLixYXQP5Bk6kKXuoY4Bmr"
+			]
+		},
+		"@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol": {
+			"keccak256": "0x8de418a5503946cabe331f35fe242d3201a73f67f77aaeb7110acb1f30423aca",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://5a376d3dda2cb70536c0a45c208b29b34ac560c4cb4f513a42079f96ba47d2dd",
+				"dweb:/ipfs/QmZQg6gn1sUpM8wHzwNvSnihumUCAhxD119MpXeKp8B9s8"
+			]
+		},
+		"@openzeppelin/contracts/utils/Context.sol": {
+			"keccak256": "0xe2e337e6dde9ef6b680e07338c493ebea1b5fd09b43424112868e9cc1706bca7",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://6df0ddf21ce9f58271bdfaa85cde98b200ef242a05a3f85c2bc10a8294800a92",
+				"dweb:/ipfs/QmRK2Y5Yc6BK7tGKkgsgn3aJEQGi5aakeSPZvS65PV8Xp3"
+			]
+		},
 		"DAO/IExecutableProposal.sol": {
 			"keccak256": "0x758a012b4bc9722fe619d444f611d31e84768e489ba07e013747ece5ee3fa7b6",
 			"license": "MIT",
@@ -289,11 +403,19 @@
 			]
 		},
 		"DAO/VotingDAO.sol": {
-			"keccak256": "0x626216fc42c703d663c80174e2a02a6c3d711893f83e0cd0f32964d6db867407",
+			"keccak256": "0xfb836b7f103aaa7fd92de08315788a89a8f008b334be866d5cb5add5d3328804",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://7e3798bc47da82cd443beb71f9d8b6345acdd1c13c192ac0f24273696ae4504f",
-				"dweb:/ipfs/Qmdcwa2foXTXxtroepNdq7bgpdcN8Y6jPBVDyyGVmaZRw2"
+				"bzz-raw://099848001addac5122c28f3f353f3c23a1eb295046118420f235c1b3714710d9",
+				"dweb:/ipfs/QmbrNvkVe1EL9dNtkdZownf9wtXjdJz3gDqffGnY4z56t2"
+			]
+		},
+		"ERC20/voteToken.sol": {
+			"keccak256": "0x34b2ec377857b32f5f7f6dda62327433e54366972322a49ab9fbc7688cf217ee",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://68d097600d7d336714e2e176e3c7c25a3d01f810f739cc797b163339fb08e4ef",
+				"dweb:/ipfs/QmVHmfG7kpzCm4JmmWgAQ5vfV8uwnz8SGrHzqMG4mH434n"
 			]
 		},
 		"hardhat/console.sol": {
